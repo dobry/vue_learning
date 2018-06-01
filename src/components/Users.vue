@@ -1,6 +1,6 @@
 <template>
   <div class="users">
-    <h1>Users></h1>
+    <h1>Users</h1>
     <ul>
       <li v-for="user in users">
         <input type="checkbox" class="toggle" v-model="user.registered">
@@ -54,6 +54,15 @@ export default {
     deleteUser: function (user) {
       this.users.splice(this.users.indexOf(user), 1);
     }
+  },
+  created: function () {
+    this.$http.get('https://jsonplaceholder.typicode.com/users')
+    .then((response) => {
+      console.log(response.data);
+      this.users = this.users.concat(response.data);
+    }).catch((err) => {
+
+    });
   }
 }
 </script>
